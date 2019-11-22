@@ -1,0 +1,17 @@
+<div class="text-center">
+	<label><input class="form-check-input" type="checkbox">checkbox 1</label><br>
+	<label><input class="form-check-input" type="checkbox">checkbox 2</label><br>
+	<label><input class="form-check-input" type="checkbox">checkbox 2</label>
+</div>
+<link rel="stylesheet" href="https://snipp.ru/cdn/bootstrap/4.3/bootstrap.min.css">
+
+<script src="https://yandex.st/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$('input:checkbox').click(function(){
+	if ($(this).is(':checked')) {
+		$(this).parent().css('color', 'green');
+	} else {
+		$(this).parent().css('color', '#000000');
+	}
+});
+</script>
