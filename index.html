@@ -6,54 +6,63 @@
   <title>toDoList</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
-  <!-- <script type="text/javascript" src="script.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
     let arr = [];
     $(function () {
+
+      //Добавляем задание
       let i = 0;
       $('button#add').on('click', function (event) {
-
         event.preventDefault();
         arr.push($('input').val());
         $('.tasksBoard > ul').append('<li><span class="delete">×</span><input id="' + i +
           '" data="' + i +
-          '" type="checkbox"><label>' + $('input').val() + '</label></li>');
+          '" type="checkbox"><label for="' + i + '">' + $('input').val() + '</label></li>');
         i++
         $('form').trigger('reset');
       });
 
-
-      $('a').on('click', function () {
+      //Удалить отмеченное задание
+      $('a#clear').on('click', function () {
         clearTask();
       });
 
       function clearTask() {
-
         for (let j = 0; j < arr.length; j++) {
           if ($('input[data="' + j + '"]').prop("checked")) {
             delete arr[j];
             $('input[data="' + j + '"]').parent().remove();
           }
         }
-
       };
 
-
-      $('input:checkbox').click(function () {
-        console.log('da');
+      //Перечеркнуть отмеченное
+      $('body').on('click', 'input:checkbox', function () {
         if ($(this).is(':checked')) {
-         
-          $(this).parent().css('color', 'green');
+          $(this).next().css('text-decoration', 'line-through');
         } else {
-          $(this).parent().css('color', '#000000');
+          $(this).next().css('text-decoration', 'none');
         }
       });
+      //Удалить задание
+      $('body').on('click', '.delete', function () {
+        $(this).parent().remove();
+      });
 
+      //Удалить все задания    
+      $('a#clearAll').on('click', function () {
+        clearTaskAll();
+      });
 
-
-
+      function clearTaskAll() {
+        for (let j = 0; j < arr.length; j++) {
+          delete arr[j];
+          $('input[data="' + j + '"]').parent().remove();
+        }
+      }
     });
+    
   </script>
 </head>
 
@@ -67,9 +76,10 @@
 
     <div class="tasksBoard">
       <ul>
-
       </ul>
-      <a id="clear">Clear</a>
+      <a id="clear">Clear selected</a></br></br>
+
+      <a id="clearAll">Clear All</a>
     </div>
   </div>
 
